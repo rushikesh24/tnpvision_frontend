@@ -1,24 +1,38 @@
 import React from 'react';
-//import logo from './logo.svg';
-import './App.css';
-
-import { Grid } from '@material-ui/core';
-import Header from './components/Header';
-import BodyContent from './components/BodyContent'
-
+import ThemeProvider from './DarkModeTheme';
+import { CssBaseline } from '@material-ui/core'
+import { createMuiTheme } from '@material-ui/core/styles';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import Homepage from './components/Homepage'
+import Login from './components/Login'
+import Register from './components/Register'
 
 function App() {
+
+  //render={(props) => <Login {...props}
+  const theme = createMuiTheme({
+    palette: {
+      type: 'light',
+      primary:{
+        main: '#1976d2'
+      },
+      secondary:{
+        main: '#FFFFFF'
+      }
+    }
+  });
+
   return (
-    <div className='App-header'>
-      <Grid container direction='column'>
-        <Grid item>
-          <Header />
-        </Grid>
-        <Grid item>
-         <BodyContent />
-        </Grid>
-      </Grid>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Homepage} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+          </Switch>
+        </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

@@ -1,0 +1,45 @@
+use vscode react snippets for easy access
+    name of the snippet ---> ES7 React/Redux/GraphQL/React-Native snippets
+
+Matrial-UI Installation 
+    npm install @material-ui/core
+
+Matrial Design installation
+    npm i react-material-design
+
+
+Git Commands--->
+    git init                                                           // start tracking current directory
+    git add -A                                                         // add all files in current directory to staging area, making them available for commit
+    git commit -m "commit message"                                     // commit your changes
+    git remote add origin https://github.com/mayur2139/Frontend.git    // add remote repository URL which contains the required details
+    git pull origin master                                             // always pull from remote before pushing
+    git push -u origin master                                          // publish changes to your remote repository
+    
+
+https://material-ui.com/getting-started/installation/
+
+For Images
+    https://www.npmjs.com/package/material-ui-image
+
+For React Basics
+    https://www.youtube.com/watch?v=QFaFIcGhPoM&list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3&index=1
+
+For React + Material UI
+    https://youtu.be/pHclLuRolzE
+
+
+Date - 23/09/2020
+
+Updated the files for homepage and done the mapping of pages
+    for routing install 
+        npm i react-router-dom
+    for history install
+        npm i history
+
+
+link for routing details
+    https://www.cluemediator.com/login-app-create-login-form-in-reactjs-using-secure-rest-api
+    https://medium.com/technoetics/create-basic-login-forms-using-create-react-app-module-in-reactjs-511b9790dede
+    https://serverless-stack.com/chapters/redirect-on-login-and-logout.html
+

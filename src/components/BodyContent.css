@@ -17,13 +17,12 @@
     opacity: 0.1;
 }
 
-.square1{
+.textSquare{
     position: absolute;
-    left: 34.51%;
-    right: 45.08%;
-    top: 21.4%;
-    bottom: 51.54%;
-    background: rgba(255, 255, 255, 1)
+    width: 546px;
+    height: 203px;
+    left: 867px;
+    top: 290px;
 }
 
 .circle1{
