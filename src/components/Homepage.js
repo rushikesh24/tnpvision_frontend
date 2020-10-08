@@ -30,51 +30,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
  function HomePage(props) {
- 	const classes = useStyles();
-
-// 	const handleLogin = () =>{
-// 		props.history.push('/login');
-// 	}
-
-// 	const [darkMode, setDarkMode] =  useState(false)
-	
-// 	const darkTheme = createMuiTheme({
-// 		palette:{
-// 			type:  "dark",
-// 			primary: {
-// 				main: '#424242'
-// 			},
-// 			background:{
-// 				paper : '#212121'
-// 			},
-// 			secondary:{
-// 				main: '#FFFFFF'
-// 			}
-// 		},
-	
-// 	});
-
-
-// 	const lightTheme = createMuiTheme({
-// 		palette:{
-// 			primary:{
-// 				main: '#1976d2'
-// 			},
-// 			secondary:{
-// 				main: '#FFFFFF'
-// 			}
-// 		}
-// 	});
-
-
+	const classes = useStyles();
+	 
 	return (
 // ========================================================== HEADER CONTENT =============================================================== 
 		<div className={classes.root}>
 			<Paper style={{height: '100vh', width: '100%'}}>
 				<Header />
 {/* ========================================================== BODY CONTENT =============================================================== */}
-				<Grid xs={12} container spacing={5} style={{minHeight:'90vh'}} >
-				<Grid item xs={0} sm={1} />
+				<Grid item xs={12} container spacing={5} style={{minHeight:'90vh'}} >
+				<Grid item xs={false} sm={1} />
 					<Grid item sm={5} >
 						<ButtonBase className={classes.image} >
 							<img className={classes.img} alt="complex" src={homepage}/>
@@ -122,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
 							</Typography>
 						</Grid>
 					</Grid>
-					<Grid item xs={0} sm={1} />
+					<Grid item xs={false} sm={1} />
 				</Grid>
 			</Paper>
 		</div>

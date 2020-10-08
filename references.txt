@@ -7,6 +7,21 @@ Matrial-UI Installation
 Matrial Design installation
     npm i react-material-design
 
+Git separate Branch Commands
+
+git clone https://github.com/rushikesh24/reactapicall.git
+git remote add origin https://github.com/rushikesh24/reactapicall.git
+git checkout -b "rushi"
+git branch -a
+git add .
+git status
+git commit -m "upload"
+git push -u origin rushi
+
+git checkout <main-branch>
+git merge <sub-branch>
+git branch -d <branch-name>
+
 
 Git Commands--->
     git init                                                           // start tracking current directory

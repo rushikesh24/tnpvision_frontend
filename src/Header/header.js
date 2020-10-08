@@ -77,13 +77,13 @@ function Header(props) {
 			onClose={handleMobileMenuClose}
 		>
 			<MenuItem>
-				Login   
+				<Login />
 			</MenuItem>
 			<MenuItem>
 				Register  
 			</MenuItem>
 			<MenuItem>
-			{/* <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)}>Change Mode</Switch> */}
+				<div onClick={()=>changeTheme()}>Change Mode</div>
 			</MenuItem>
 		</Menu>
 	);
@@ -95,34 +95,31 @@ function Header(props) {
 	return (
 // ========================================================== HEADER CONTENT =============================================================== 
 		<div className={classes.root}>
-					<AppBar className='header' color='primary' position='static'>
-						<Toolbar>
-							<Typography className={classes.title} variant="h6" noWrap>
-								<Link onClick={handleHomepage} color='inherit' underline='none'>TnPVision</Link>
-							</Typography>
-							<div className={classes.grow} />
-							<div className={classes.sectionDesktop}>
-								<IconButton title="Toggle light/dark mode" style={{color: 'white'}} onClick={()=>changeTheme()}>
-									{theme.palette.type === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
-								</IconButton>
-								<Login />
-								<Button className={classes.button} variant='outlined' color='secondary' onClick={handleRegister}>Register</Button>
-								
-							</div>
-							<div className={classes.sectionMobile}>
-								<IconButton
-									aria-label="show more"
-									aria-controls={mobileMenuId}
-									aria-haspopup="true"
-									onClick={handleMobileMenuOpen}
-									color="inherit"
-								>
-									<MoreIcon />
-								</IconButton>
-							</div>
-							
-						</Toolbar>
-					</AppBar>
+			<AppBar className='header' color='primary' position='static'>
+				<Toolbar>
+					<Typography className={classes.title} variant="h6" noWrap>
+						<Link onClick={handleHomepage} color='inherit' underline='none'>TnPVision</Link>
+					</Typography>
+					<div className={classes.sectionDesktop}>
+						<IconButton title="Toggle light/dark mode" style={{color: 'white'}} onClick={()=>changeTheme()}>
+							{theme.palette.type === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+						</IconButton>
+						<Login />
+						<Button className={classes.button} variant='outlined' color='secondary' onClick={handleRegister}>Register</Button>	
+					</div>
+					<div className={classes.sectionMobile}>
+						<IconButton
+							aria-label="show more"
+							aria-controls={mobileMenuId}
+							aria-haspopup="true"
+							onClick={handleMobileMenuOpen}
+							color="inherit"
+						>
+							<MoreIcon />
+						</IconButton>
+					</div>
+				</Toolbar>
+			</AppBar>
 					{renderMobileMenu}
         </div>
     );
