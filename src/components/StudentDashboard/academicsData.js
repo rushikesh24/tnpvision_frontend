@@ -1,34 +1,9 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import {Tabs, Tab, TextField, MenuItem, Grid, Box, Checkbox, FormControlLabel, Avatar, makeStyles, Button, Divider } from '@material-ui/core';
-//import { KeyboardDatePicker } from 'formik-material-ui-pickers'
+import { TextField, MenuItem, Grid, Box, Checkbox, FormControlLabel, makeStyles, Button, Divider, Typography } from '@material-ui/core';
 import {DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
-import passport from '../../static/images/passport.jpeg';
-
-
-const ranges = [
-    {
-        value: 'none',
-        label: 'None',
-    },
-    {
-      value: 'female',
-      label: 'Female',
-    },
-    {
-      value: 'male',
-      label: 'Male',
-    },
-    {
-      value: 'notsay',
-      label: 'Prefer Not To Say',
-    },
-];
 
 const college=[
 	{
@@ -95,101 +70,15 @@ const after10th = [
 ];
 
 const useStyles = makeStyles({
-    img:{
-        backgroundColor:'#ffffff',
-        height: '120px',
-        width: '120px',
-    },
     button:{
         marginTop: '15px',
-    },
-    scroll:{
-        overflowY: 'scroll',
-        height: '76vh',
     }
 })
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography component={'span'}>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
-
-export default function SimpleTabs() { 
+export default function AcademicsData() {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-    const [isPersonalDataUpdated, setPersonalDataUpdated] = React.useState(false);
-    const [isAcademicsDataUpdated, setAcademicsDataUpdated] = React.useState(false); 
-    // const [selectedDate, handleDateChange] = React.useState(new Date());
-   
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
-    const formik1 = useFormik({
-        initialValues:{
-            email: '', 
-            gender: 'none', 
-            fatheroccupation: '', 
-            motheroccupation: '',
-            studentphone: '', 
-            phone: '', 
-            peraddress: '', 
-            curaddress:'',
-            pan:'',
-            aadhar:'',
-            dob: new Date(),
-
-        },
-        onSubmit: (values, { setSubmitting}) => {
-            setSubmitting(true);
-            console.log("Form Data", values);
-            setPersonalDataUpdated(true);
-            
-        },
-        validationSchema: Yup.object({
-            email: Yup.string().email('Invalid Email').required('Required'),
-            phone: Yup.string().matches(/^[0]?[789]\d{9}$/, 'Invalid Phone Number').required('Required'),
-            fatheroccupation: Yup.string().required('Required'),
-            motheroccupation: Yup.string().required('Required'),
-            studentphone: Yup.string().matches(/^[0]?[789]\d{9}$/, 'Invalid Phone Number').required('Required'),
-            peraddress: Yup.string().required('Required'),
-            curaddress: Yup.string().required('Required'),
-            pan: Yup.string().matches(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, 'Invalid PAN Number').required('Required'),
-            aadhar: Yup.string().matches(/^[0-9]{12}$/, 'Invalid Aadhar Number').required('Required'),
-            dob: Yup.date().nullable(),
-            gender: Yup.string().required("Required"),
-        })
-    });
+    
+    const [isAcademicsDataUpdated, setAcademicsDataUpdated] = React.useState(false);
 
     const formik2 = useFormik({
         initialValues:{
@@ -269,233 +158,15 @@ export default function SimpleTabs() {
         })
     });
 
-    //Button
-    const handleClick= () =>{
-
-    }
-    const [selectedDate, setSelectedDate] = React.useState();
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
     };
 
-  return (
-        <div >
+    return(
+        <div>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <AppBar position='static' color= 'default'>
-                <Tabs value={value} onChange={handleChange} centered>
-                    <Tab label="Personal Data" {...a11yProps(0)} />
-                    <Tab label="Academics Data" {...a11yProps(1)} />
-                </Tabs>
-            </AppBar>
-            <Box border= {1} borderColor= "grey.500" borderRadius= '5px' className={classes.scroll}>
-            <TabPanel value={value} index={0} >
-            {!isPersonalDataUpdated && <React.Fragment>
-                <div label="Personal Data">
-                        <Grid container >
-                            <Grid item xs={false} sm={1} />
-                            <Grid item xs={12} sm={10} >
-                                <form onSubmit={formik1.handleSubmit} >
-                                    <Box border= {1} borderColor= "grey.500" margin='10px' borderRadius= '5px' padding= '20px'>
-                                    <Grid container spacing={3} style={{marginBottom: '30px' }} >
-                                        <Grid item xs={false} sm={6} >
-                                            <Box display='flex' alignItems='center' flexDirection='column' >
-                                            <Avatar alt="Remy Sharp" src={passport} className={classes.img} />
-                                            </Box>
-                                        </Grid>
-                                        <Grid item xs={false} sm={6} >
-                                            <Box display='flex' alignItems='center' flexDirection='column' >
-                                                <Typography color="textPrimary" gutterBottom variant="h3" >
-                                                    Mayur Nagare
-                                                </Typography>
-                                                <Typography color="textSecondary" variant="body1" >
-                                                    Manmad, India
-                                                </Typography>
-                                            </Box>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid container spacing={3}>
-                                    <Grid item xs={false} sm={6} >
-                                        <DatePicker
-                                            autoOk
-                                            disableFuture
-                                            margin="normal"
-                                            variant='inline'
-                                            id= 'dob'
-                                            format="dd/MM/yyyy"
-                                            label="Date of Birth"
-                                            name= 'dob'
-                                            fullWidth
-                                            views={["year", "month", "date"]}
-                                            onChange={formik1.handleChange && handleDateChange}
-                                            onBlur= {formik1.handleBlur}
-                                            error={formik1.errors.dob }
-                                            helperText= {(formik1.errors.dob && formik1.touched.dob) && formik1.errors.dob}
-                                            value={formik1.values.dob && selectedDate}
-                                            
-                                        />
-                                        <TextField
-                                            margin="dense"
-                                            id="gender"
-                                            name="gender"
-                                            label="Gender"
-                                            select
-                                            variant='standard'
-                                            fullWidth
-                                            onChange={formik1.handleChange }
-                                            onBlur= {formik1.handleBlur}
-                                            error={formik1.errors.gender }
-                                            helperText= {(formik1.errors.gender && formik1.touched.gender) && formik1.errors.gender}
-                                            value={formik1.values.gender}
-                                            InputLabelProps={{shrink: true,}}>
-                                                {ranges.map((option) => (
-                                                    <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
-                                                    </MenuItem>
-                                                ))}
-                                        </TextField>
-                                        <TextField
-                                            margin="dense"
-                                            id="fatheroccupation"
-                                            name="fatheroccupation"
-                                            label="Father's Occupation"
-                                            type="text"
-                                            variant="standard"
-                                            fullWidth
-                                            onChange={formik1.handleChange}
-                                            onBlur= {formik1.handleBlur}
-                                            error={formik1.errors.fatheroccupation && formik1.touched.fatheroccupation}
-                                            helperText= {(formik1.errors.fatheroccupation && formik1.touched.fatheroccupation) && formik1.errors.fatheroccupation}
-                                            value={formik1.values.fatheroccupation}
-                                        />
-                                        <TextField
-                                            margin="dense"
-                                            id="motheroccupation"
-                                            name="motheroccupation"
-                                            label="Mother's Occupation"
-                                            type="text"
-                                            variant="standard"
-                                            fullWidth
-                                            onChange={formik1.handleChange}
-                                            onBlur= {formik1.handleBlur}
-                                            error={formik1.errors.motheroccupation && formik1.touched.motheroccupation}
-                                            helperText= {(formik1.errors.motheroccupation && formik1.touched.motheroccupation) && formik1.errors.motheroccupation}
-                                            value={formik1.values.motheroccupation}
-                                        />
-                                        
-                                        <TextField
-                                            margin="dense"
-                                            id="studentphone"
-                                            name="studentphone"
-                                            label="Student Phone Number"
-                                            type="number"
-                                            variant="standard"
-                                            fullWidth
-                                            onChange={formik1.handleChange}
-                                            onBlur= {formik1.handleBlur}
-                                            error={formik1.errors.studentphone && formik1.touched.studentphone}
-                                            helperText= {(formik1.errors.studentphone && formik1.touched.studentphone) && formik1.errors.studentphone}
-                                            value={formik1.values.studentphone}
-                                        />
-                                        <TextField
-                                            margin="dense"
-                                            id="email"
-                                            name="email"
-                                            label="Parent's Email ID"
-                                            type="text"
-                                            variant="standard"
-                                            fullWidth
-                                            onChange={formik1.handleChange}
-                                            onBlur= {formik1.handleBlur}
-                                            error={formik1.errors.email && formik1.touched.email}
-                                            helperText= {(formik1.errors.email && formik1.touched.email) && formik1.errors.email}
-                                            value={formik1.values.email}
-                                        />
-                                        </Grid>
-                                        <Grid item xs={false} sm={6}>
-                                        <TextField
-                                            margin="dense"
-                                            id="phone"
-                                            name="phone"
-                                            label="Parent's Phone Number"
-                                            type="number"
-                                            variant="standard"
-                                            fullWidth
-                                            onChange={formik1.handleChange}
-                                            onBlur= {formik1.handleBlur}
-                                            error= {formik1.errors.phone && formik1.touched.phone}
-                                            helperText= {(formik1.errors.phone && formik1.touched.phone) && formik1.errors.phone}
-                                            value={formik1.values.phone}
-                                        />
-                                        <TextField
-                                            margin="dense"
-                                            id=""
-                                            name="peraddress"
-                                            label="Permenant Address"
-                                            type="text"
-                                            variant="standard"
-                                            fullWidth
-                                            onChange={formik1.handleChange}
-                                            onBlur= {formik1.handleBlur}
-                                            error= {formik1.errors.peraddress && formik1.touched.peraddress}
-                                            helperText= {(formik1.errors.peraddress && formik1.touched.peraddress) && formik1.errors.peraddress}
-                                            value={formik1.values.peraddress}
-                                        />
-                                        <TextField
-                                            margin="dense"
-                                            id=""
-                                            name="curaddress"
-                                            label="Current Address"
-                                            type="text"
-                                            variant="standard"
-                                            fullWidth
-                                            onChange={formik1.handleChange}
-                                            onBlur= {formik1.handleBlur}
-                                            error= {formik1.errors.curaddress && formik1.touched.curaddress}
-                                            helperText= {(formik1.errors.curaddress && formik1.touched.curaddress) && formik1.errors.curaddress}
-                                            value={formik1.values.curaddress}
-                                        />
-                                        <TextField
-                                            margin="dense"
-                                            id=""
-                                            name="pan"
-                                            label="PAN Number"
-                                            type="text"
-                                            variant="standard"
-                                            fullWidth
-                                            onChange={formik1.handleChange}
-                                            onBlur= {formik1.handleBlur}
-                                            error= {formik1.errors.pan && formik1.touched.pan}
-                                            helperText= {(formik1.errors.pan && formik1.touched.pan) && formik1.errors.pan}
-                                            value={formik1.values.pan}
-                                        />
-                                        <TextField
-                                            margin="dense"
-                                            id="aadhar"
-                                            name="aadhar"
-                                            label="Aadhar Number"
-                                            type="text"
-                                            variant="standard"
-                                            fullWidth
-                                            onChange={formik1.handleChange}
-                                            onBlur= {formik1.handleBlur}
-                                            error= {formik1.errors.aadhar && formik1.touched.aadhar}
-                                            helperText= {(formik1.errors.aadhar && formik1.touched.aadhar) && formik1.errors.aadhar}
-                                            value={formik1.values.aadhar}
-                                        />
-                                        </Grid>
-                                        </Grid>
-                                        <Button className={classes.button} onClick={handleClick} type="submit" color="primary" variant='contained' disabled={formik1.isSubmitting}>Save {'&'} Next</Button>
-                                    </Box>
-                                </form>
-                            </Grid> 
-                            <Grid item xs={false} sm={1} />
-                            </Grid>
-                    </div>
-                    </React.Fragment>
-					}
-            </TabPanel>
-            <TabPanel value={value} index={1}>
             {!isAcademicsDataUpdated && <React.Fragment>
                 <div label="Academics Data">
                     <Grid container >
@@ -1002,7 +673,6 @@ export default function SimpleTabs() {
                                                 type="number"
                                                 variant="standard"
                                                 fullWidth
-                                                
                                                 onChange={formik2.handleChange}
                                                 onBlur= {formik2.handleBlur}
                                                 error={formik2.errors.educationalgap && formik2.touched.educationalgap}
@@ -1026,9 +696,8 @@ export default function SimpleTabs() {
                     </Grid>
                 </div>
             </React.Fragment>}
-            </TabPanel>
-            </Box>
         </MuiPickersUtilsProvider>
-    </div>
-  );
+        </div>
+
+    )
 }

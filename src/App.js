@@ -24,7 +24,7 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <CssBaseline />
       
         <BrowserRouter>
@@ -40,3 +40,4 @@ function App() {
 }
 
 export default App;
+

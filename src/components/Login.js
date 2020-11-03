@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dialog, DialogTitle, DialogActions, DialogContent, TextField, DialogContentText, Button, Grid, ButtonBase, Typography, Link} from '@material-ui/core';
+import {Dialog, DialogTitle, DialogActions, DialogContent, TextField, DialogContentText, Button, Grid, ButtonBase} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import ForgotPassword from './ForgotPassword'
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Login(props){ 
 	const classes = useStyles();
-	const { history } = props;
+	
 //===================================== Dialog Box =====================================
     const [loginOpen, setLoginOpen] = React.useState(false);
 	const [isSubmitionCompleted, setSubmitionCompleted] = React.useState(false);
@@ -103,7 +103,7 @@ function Login(props){
 		<div>
 			<React.Fragment>
             	<Button className={classes.button} variant='outlined' color='secondary' onClick={handleLoginOpen}>Login</Button>
-            	<Dialog open={loginOpen} onClose={handleLoginClose} className={classes.dialogEffect} fullWidth>
+            	<Dialog open={loginOpen} onClose={handleLoginClose} className={classes.dialogEffect} fullWidth component={'span'}>
             	    
 					{!isSubmitionCompleted && <React.Fragment>
 					<DialogTitle>
@@ -157,8 +157,8 @@ function Login(props){
 												helperText= {(formik.errors.password && formik.touched.password) && formik.errors.password}
 												value={formik.values.password}
 	        								/>
-	        								<DialogContentText style={{marginTop: '8px'}}>
-	        									<ForgotPassword component={'span'} />
+	        								<DialogContentText style={{marginTop: '8px'}} component={'div'}>
+	        									<ForgotPassword  />
 	        								</DialogContentText>
 	        							</DialogContent>
 									<DialogActions className={classes.textField}>
@@ -169,12 +169,6 @@ function Login(props){
 									</Box>
 								</form>
 							</Grid>
-							<Typography>
-								Don't Have Account?{' '}
-								<Link onClick={() => history.push('/register')}>
-									Register
-								</Link>
-							</Typography>
 						</Grid>
 					</React.Fragment>
 					}

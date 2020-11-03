@@ -104,7 +104,7 @@ function Header(props) {
 						<IconButton title="Toggle light/dark mode" style={{color: 'white'}} onClick={()=>changeTheme()}>
 							{theme.palette.type === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
 						</IconButton>
-						<Login />
+						<div><Login /></div>
 						<Button className={classes.button} variant='outlined' color='secondary' onClick={handleRegister}>Register</Button>	
 					</div>
 					<div className={classes.sectionMobile}>

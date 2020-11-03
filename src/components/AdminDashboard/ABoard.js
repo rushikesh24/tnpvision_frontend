@@ -1,11 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { CssBaseline, useTheme, Drawer, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemText, ListItemIcon} from '@material-ui/core';
+import { CssBaseline, useTheme, Drawer, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemText, ListItemIcon, Collapse } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import BusinessIcon from '@material-ui/icons/Business';
@@ -13,12 +12,19 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { Avatar, ListItemAvatar, Badge, Container, Paper } from '@material-ui/core';
+import { Avatar, ListItemAvatar, Container, Paper } from '@material-ui/core';
 import { withRouter, Route } from 'react-router-dom';
 import Dashboard from './dashboard';
 import AdminProfile from './Profile';
 import EmpApproval from './employeeApproval';
+import ImportStudent from './importStudent'
+import Settings from './Settings'
 import graphic from '../../static/images/graphic-designer.svg';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import PersonIcon from '@material-ui/icons/Person';
+import Notification from './Notification'
 //DarkThemeMode
 import { useChangeTheme } from '../../DarkModeTheme';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
@@ -30,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   icon:{
-    marginRight: '10px'
+    marginLeft: '10px',
+    marginRight: '10px',
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -96,7 +103,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
-
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
 }));
 
 function AdminDashboard(props) {
@@ -115,22 +124,18 @@ function AdminDashboard(props) {
     {
       text : 'Companies',
       icon: <BusinessIcon />,
-      onClick: () => history.push("/admin/profile"),
-    },
-    {
-      text : 'Student Data',
-      icon: <PeopleIcon />
+      onClick: () => history.push("/admin/companies"),
     },
     {
       text : 'Job Post',
       icon: <PostAddIcon />
     },
-    {
-      text : 'Notification',
-      icon: <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-            </Badge>
-    },
+    // {
+    //   text : 'Notification',
+    //   icon: <Badge badgeContent={4} color="secondary">
+    //             <NotificationsIcon />
+    //         </Badge>
+    // },
   ]
   const secondaryListItems =[
     {
@@ -146,7 +151,8 @@ function AdminDashboard(props) {
   const ternaryListItems =[
     {
       text : 'Settings',
-      icon: <SettingsIcon />
+      icon: <SettingsIcon />,
+      onClick: () => history.push("/admin/settings"),
     },
     {
       text : 'Employee Approval',
@@ -158,7 +164,17 @@ function AdminDashboard(props) {
       icon: <SupervisedUserCircleIcon />
     },
   ]
-
+  const nestedItems =[
+    {
+      text : 'Student Information',
+      icon: <PersonIcon />
+    },
+    {
+      text : 'Import Students',
+      icon: <GetAppIcon />,
+      onClick: () => history.push("/admin/importstud"),
+    }
+  ]
 
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
@@ -166,6 +182,12 @@ function AdminDashboard(props) {
   };
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const [openDown, setOpenDown] = React.useState(false);
+
+  const handleClick = () => {
+    setOpenDown(!openDown);
   };
 
   return (
@@ -185,12 +207,13 @@ function AdminDashboard(props) {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             TnPVision
           </Typography>
+          <Notification />
           <IconButton title="Toggle light/dark mode" className={classes.icon} style={{color: 'white'}} onClick={()=>changeTheme()}>
 									{theme.palette.type === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
 					</IconButton>
           <ListItemAvatar>
                 <Avatar alt="Remy Sharp" src={graphic} style={{backgroundColor:'#ffffff'}} onClick={() => history.push("/admin/profile")}></Avatar>
-            </ListItemAvatar>
+          </ListItemAvatar>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -216,6 +239,26 @@ function AdminDashboard(props) {
               </ListItem>
             );
           })}
+            <ListItem button onClick={handleClick}>
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary="Student Section" />
+              {openDown ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={openDown} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {nestedItems.map((item, index) =>{
+                  const { text, icon, onClick } = item;
+                  return(
+                    <ListItem button key={text} onClick={onClick} className={classes.nested}>
+                      {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                      <ListItemText primary={text} />
+                    </ListItem>
+                  );
+                })}                
+               </List>
+             </Collapse>
         </List>
         <Divider />
         <List>
@@ -244,11 +287,13 @@ function AdminDashboard(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Paper style={{height: '91.5vh', width: '100%'}} elevation='0'>
+        <Paper style={{height: '91.5vh', width: '100%'}} elevation={0}>
           <Container maxWidth='lg' className={classes.container}>
             <Route path="/admin/dashboard" component={Dashboard} />
             <Route path="/admin/profile" component={AdminProfile} />
             <Route path="/admin/empapprove" component={EmpApproval} />
+            <Route path='/admin/importstud' component={ImportStudent} />
+            <Route path='/admin/settings' component={Settings} />
           </Container>
           </Paper>
       </main>

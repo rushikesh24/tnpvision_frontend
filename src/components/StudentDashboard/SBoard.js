@@ -5,14 +5,15 @@ import { CssBaseline, Drawer, AppBar, Toolbar, List, Typography, Divider, IconBu
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import BusinessIcon from '@material-ui/icons/Business';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Avatar, useTheme, Paper, Badge, Container } from '@material-ui/core';
 import { withRouter, Route } from 'react-router-dom';
 import Profile from './sProfile';
+import Acad from './academicsData'
 import graphic from '../../static/images/graphic-designer.svg';
+import Notification from '../AdminDashboard/Notification'
 //DarkThemeMode
 import { useChangeTheme } from '../../DarkModeTheme';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
@@ -24,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   icon:{
-    marginRight: '10px'
+    marginLeft: '10px',
+    marginRight: '10px',
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -118,13 +120,13 @@ function AdminDashboard(props) {
         icon: <HowToRegIcon />,
         onClick: () => history.push("/student/attendance"),
     },
-    {
-        text : 'Notification',
-        icon: <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-            </Badge>,
-        onClick: () => history.push("/student/notification"),
-    },
+    // {
+    //     text : 'Notification',
+    //     icon: <Badge badgeContent={4} color="secondary">
+    //             <NotificationsIcon />
+    //         </Badge>,
+    //     onClick: () => history.push("/student/notification"),
+    // },
   ]
   const secondaryListItems =[
     {
@@ -160,6 +162,7 @@ function AdminDashboard(props) {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             TnPVision
           </Typography>
+          <Notification/>
           <IconButton title="Toggle light/dark mode" className={classes.icon} style={{color: 'white'}} onClick={()=>changeTheme()}>
 							{theme.palette.type === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
 					</IconButton>
@@ -205,11 +208,12 @@ function AdminDashboard(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-          <Paper style={{height: '91.5vh', width: '100%'}}>
+          <Paper style={{height: 'auto', width: '100%'}} elevation={0}>
             <Container maxWidth='lg' className={classes.container}>
               {/* <Route path="/student/dashboard" component={Dashboard} /> */}
               <Route path="/student/profile" component={Profile} />
               {/* <Route path="/student/empapprove" component={EmpApproval} /> */}
+              <Route path="/student/acad" component={Acad} />
             </Container>
           </Paper>
       </main>
