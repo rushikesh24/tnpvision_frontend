@@ -15,7 +15,7 @@ import Acad from './academicsData'
 import graphic from '../../static/images/graphic-designer.svg';
 import Notification from '../AdminDashboard/Notification'
 //DarkThemeMode
-import { useChangeTheme } from '../../DarkModeTheme';
+import { useChangeTheme } from '../../DarkModeTheme/ThemeProvider';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 

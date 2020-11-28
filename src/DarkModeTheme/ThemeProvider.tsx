@@ -8,7 +8,7 @@ import {
 import { useTheme } from '@material-ui/core/styles';
 
 interface ThemeProviderProps {
-  children: React.ReactNode
+  children: React.ReactNode,
   theme: Theme
 }
 
@@ -36,10 +36,16 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme }) => {
     return createMuiTheme({
       ...theme,
       palette: {
-        type: themeOptions.paletteType
+        type: themeOptions.paletteType,
+        primary:{
+          main: '#1976d2'
+        },
+        secondary:{
+          main: '#FFFFFF'
+        }
       }
     })
-  }, [theme,themeOptions.paletteType]);
+  }, [theme,themeOptions.paletteType ]);
 
   return (
     <MuiThemeProvider theme={memoizedTheme}>

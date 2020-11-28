@@ -1,5 +1,5 @@
 import React from 'react';
-import { useChangeTheme } from '../DarkModeTheme';
+import { useChangeTheme } from '../DarkModeTheme/ThemeProvider';
 import {AppBar, useTheme, Toolbar, Button, Typography, IconButton, Link} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';

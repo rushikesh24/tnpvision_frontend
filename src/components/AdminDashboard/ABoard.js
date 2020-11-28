@@ -26,7 +26,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import PersonIcon from '@material-ui/icons/Person';
 import Notification from './Notification'
 //DarkThemeMode
-import { useChangeTheme } from '../../DarkModeTheme';
+import { useChangeTheme } from '../../DarkModeTheme/ThemeProvider.tsx';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 

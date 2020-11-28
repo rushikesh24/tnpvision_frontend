@@ -1,7 +1,6 @@
 import React from 'react';
-import ThemeProvider from './DarkModeTheme';
+import ThemeProvider from './DarkModeTheme/ThemeProvider';
 import { CssBaseline } from '@material-ui/core'
-import { createMuiTheme } from '@material-ui/core/styles';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Homepage from './components/Homepage';
 import aBoard from './components/AdminDashboard/ABoard';
@@ -11,17 +10,6 @@ import Register from './components/Register'
 function App() {
 
   //render={(props) => <Login {...props}
-  const theme = createMuiTheme({
-    palette: {
-      type: 'light',
-      primary:{
-        main: '#1976d2'
-      },
-      secondary:{
-        main: '#FFFFFF'
-      }
-    }
-  });
 
   return (
     <ThemeProvider>
