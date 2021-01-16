@@ -11,6 +11,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { Avatar, useTheme, Paper, Badge, Container } from '@material-ui/core';
 import { withRouter, Route } from 'react-router-dom';
 import Profile from './sProfile';
+import Dashboard from './studentDashboard';
 import Acad from './academicsData'
 import graphic from '../../static/images/graphic-designer.svg';
 import Notification from '../AdminDashboard/Notification'
@@ -210,7 +211,7 @@ function AdminDashboard(props) {
         <div className={classes.appBarSpacer} />
           <Paper style={{height: 'auto', width: '100%'}} elevation={0}>
             <Container maxWidth='lg' className={classes.container}>
-              {/* <Route path="/student/dashboard" component={Dashboard} /> */}
+              <Route path="/student/dashboard" component={Dashboard} /> 
               <Route path="/student/profile" component={Profile} />
               {/* <Route path="/student/empapprove" component={EmpApproval} /> */}
               <Route path="/student/acad" component={Acad} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Dialog, DialogTitle, DialogActions, DialogContent, TextField, DialogContentText, Button, Grid, ButtonBase} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +10,10 @@ import loginpage from '../static/images/loginpage.svg';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {withRouter} from 'react-router-dom';
+import axios from 'axios';
+import API_URL from './services/HttpUrl';
+import DataServices from './services/Services'
+
 
 function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -57,6 +61,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Login(props){ 
 	const classes = useStyles();
+	const [isLogin, setIsLogin] = useState('')
+
+	
+  
 	
 //===================================== Dialog Box =====================================
     const [loginOpen, setLoginOpen] = React.useState(false);
@@ -90,8 +98,28 @@ function Login(props){
 		},
 		onSubmit: (values, { setSubmitting}) => {
 			setSubmitting(true);
-			console.log("Form Data", values);
-			setSubmitionCompleted(true);
+			//console.log("Form Data", values);
+			axios({
+				method: 'post',
+				url: 'https://cors-anywhere.herokuapp.com/https://tnpvision-auth.herokuapp.com/api/login/',
+				data: {username: values.email, password: values.password }, 
+			})
+				.then((result) => {    
+					localStorage.setItem("userToken", result.data.token);  
+					console.log(result);   					    
+					if (result.status === 200)    
+						props.history.push('/student/dashboard')    
+					else{
+						console.log(result);
+						alert('Invalid User');
+					}
+						setSubmitionCompleted(true); 
+					   
+				})
+				.catch((error) => {
+					console.log(error);
+				})        
+			
 		},
 		validationSchema: Yup.object({
 			email: Yup.string().email('Invalid Email').required('Required'),

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Typography, Grid, Box, ButtonBase, Paper} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import './BodyContent.css'
@@ -30,8 +31,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
  function HomePage(props) {
+
 	const classes = useStyles();
-	 
+	
+	/*const[users, setUsers] = useState([]);
+	useEffect((props) => {
+		axios.get("https://jsonplaceholder.typicode.com/todos", {
+			headers:{
+				Authorizartion: localStorage.getItem("userToken")
+			}
+		})
+		.then(res => {
+			setUsers(res.data)
+			console.log(res);
+		})
+		.catch(function (error){
+			console.log("Error Fetching Data");
+			props.showError("Session Invalid");
+		})
+	}, [])*/
+	
 	return (
 // ========================================================== HEADER CONTENT =============================================================== 
 		<div className={classes.root}>

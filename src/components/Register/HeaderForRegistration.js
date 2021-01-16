@@ -1,6 +1,5 @@
-import React from 'react';
-import { useChangeTheme } from '../DarkModeTheme/ThemeProvider';
-import {AppBar, useTheme, Toolbar, Typography, IconButton, Link} from '@material-ui/core';
+import React,{useState, useContext} from 'react';
+import {AppBar, Toolbar, Typography, IconButton, Link, useTheme} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -8,8 +7,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import {withRouter} from 'react-router-dom'
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
-import Login from '../components/Login';
-import Register from '../components/Register/RegisterDialog';
+import { useChangeTheme } from '../../DarkModeTheme/ThemeProvider';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,10 +41,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	
 }));
-
-function Header(props) {
+function HeaderForregistration(props) {
+	
 	const classes = useStyles();
-
 	const theme = useTheme();
     const changeTheme = useChangeTheme();
 
@@ -77,50 +74,41 @@ function Header(props) {
 			open={isMobileMenuOpen}
 			onClose={handleMobileMenuClose}
 		>
-			<MenuItem>
-				<Login />
-			</MenuItem>
-			<MenuItem>
-				Register  
-			</MenuItem>
-			<MenuItem>
-				<div onClick={()=>changeTheme()}>Change Mode</div>
+			<MenuItem>   
 			</MenuItem>
 		</Menu>
 	);
 
-
 	return (
 // ========================================================== HEADER CONTENT =============================================================== 
 		<div className={classes.root}>
-			<AppBar className='header' color='primary' position='static'>
-				<Toolbar>
-					<Typography className={classes.title} variant="h6" noWrap>
-						<Link onClick={handleHomepage} color='inherit' underline='none'>TnPVision</Link>
-					</Typography>
-					<div className={classes.sectionDesktop}>
-						<IconButton title="Toggle light/dark mode" style={{color: 'white'}} onClick={()=>changeTheme()}>
-							{theme.palette.type === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
-						</IconButton>
-						<div><Login /></div>
-						<div><Register/></div>
-						{/*<Button className={classes.button} variant='outlined' color='secondary' onClick={handleRegister}>Register</Button>*/}	
-					</div>
-					<div className={classes.sectionMobile}>
-						<IconButton
-							aria-label="show more"
-							aria-controls={mobileMenuId}
-							aria-haspopup="true"
-							onClick={handleMobileMenuOpen}
-							color="inherit"
-						>
-							<MoreIcon />
-						</IconButton>
-					</div>
-				</Toolbar>
-			</AppBar>
+					<AppBar className='header' color='primary' position='static'>
+						<Toolbar>
+							<Typography className={classes.title} variant="h6" noWrap>
+								<Link onClick={handleHomepage} color='inherit' underline='none'>TnPVision</Link>
+							</Typography>
+							<div className={classes.grow} />
+							<div className={classes.sectionDesktop}>
+								<IconButton title="Toggle light/dark mode" style={{color: 'white'}} onClick={()=>changeTheme()}>
+									{theme.palette.type === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+								</IconButton>
+							</div>
+							<div className={classes.sectionMobile}>
+								<IconButton
+									aria-label="show more"
+									aria-controls={mobileMenuId}
+									aria-haspopup="true"
+									onClick={handleMobileMenuOpen}
+									color="inherit"
+								>
+									<MoreIcon />
+								</IconButton>
+							</div>
+							
+						</Toolbar>
+					</AppBar>
 					{renderMobileMenu}
         </div>
     );
 }        
-export default withRouter(Header);
+export default withRouter(HeaderForregistration);

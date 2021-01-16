@@ -8,7 +8,10 @@ class AllServices{
         return http.get(`/register/${email}`);
     }
     create(data) {
-        return http.post("/tutorials/", data);
+        return http.post("/register/", data);
+    }
+    getUser(email, password){
+        return http.post("/login", email, password);
     }
 }
 
